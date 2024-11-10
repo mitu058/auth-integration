@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../providers/AuthProvider';
 
 const SignUp = () => {
+
+const {creatUser} = useContext(AuthContext)
+
     const handelSignUp = (e) => {
         e.preventDefault();
         const name = e.target.name.value
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(name, email, password);
+        
+        // creat user from get context
+        creatUser(email,password)
+        .then(result => {
+            console.log(result.user)
+        })
+        .catch(error =>{
+            console.log('ERROR', error)
+        })
       };
     return (
         <div className="hero min-h-screen">
